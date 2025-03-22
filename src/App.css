@@ -322,8 +322,6 @@ h1 {
   margin-top: 5px;
   margin-bottom: 10px;
 }
-
-/* Upewnij się, że textarea również zachowuje nowe linie podczas edycji */
 .form-group textarea {
   min-height: 80px;
   resize: vertical;

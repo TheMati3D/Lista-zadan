@@ -30,7 +30,7 @@ function AddTaskForm() {
     const selectedDate = new Date(e.target.value);
     const now = new Date();
     
-    // Nie ma sensu dodawać zadań z przeszłości
+    // Sprawdzamy czy data nie jest z przeszłości
     if (selectedDate < now) {
       setDateError('Nie można wybrać daty z przeszłości');
     } else {
@@ -42,7 +42,7 @@ function AddTaskForm() {
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
     
-    // Ucinamy tekst jak za długi i informujemy użytkownika
+    // Sprawdzamy czy tytuł nie jest za długi
     if (newTitle.length > MAX_TITLE_LENGTH) {
       setTitleError(`Tytuł może zawierać maksymalnie ${MAX_TITLE_LENGTH} znaków`);
       setTitle(newTitle.substring(0, MAX_TITLE_LENGTH));
@@ -55,13 +55,13 @@ function AddTaskForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Podstawowe sprawdzenie czy są wypełnione wymagane pola
+    // Sprawdzamy czy wszystkie wymagane pola są wypełnione
     if (!title.trim() || !dueDate) {
       alert('Proszę wypełnić wszystkie wymagane pola');
       return;
     }
 
-    // Jeszcze raz sprawdzamy datę - tak na wszelki wypadek
+    // Sprawdzamy czy data nie jest z przeszłości
     const selectedDate = new Date(dueDate);
     const now = new Date();
     if (selectedDate < now) {

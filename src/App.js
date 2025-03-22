@@ -39,19 +39,19 @@ function App() {
     // Ustawienie timera na sprawdzanie co minutę - żeby status się aktualizował na bieżąco
     const intervalId = setInterval(checkOverdueTasks, 60000);
     
-    // Posprzątaj po sobie - zawsze pamiętaj o clearInterval w useEffect!
+    
     return () => clearInterval(intervalId);
-  }, []); // Pusta tablica = tylko raz przy montowaniu komponentu
+  }, []); 
 
   const handleFileUpload = (fileContent) => {
     try {
       setIsLoading(true);
       setError(null);
       
-      // Próbujemy sparsować JSON - może się wywalić, więc w try/catch
+      // Parsujemy zawartość pliku
       const parsedTasks = JSON.parse(fileContent);
       
-      // To nie powinna być tablica obiektów, odrzucamy
+      // Sprawdzamy czy plik zawiera tablicę zadań
       if (!Array.isArray(parsedTasks)) {
         throw new Error("Zawartość pliku nie jest poprawną tablicą zadań.");
       }
@@ -61,7 +61,7 @@ function App() {
       
       // Sprawdzamy każde zadanie i dostosowujemy do naszego formatu
       const validatedTasks = parsedTasks.map(task => {
-        // Bez tytułu i daty nic nie zrobimy
+        // Sprawdzamy czy zadanie zawiera wymagane pola
         if (!task.title || !task.dueDate) {
           throw new Error(`Zadanie musi zawierać tytuł i termin wykonania.`);
         }
@@ -92,7 +92,7 @@ function App() {
     setTasks(prevTasks => 
       prevTasks.map(task => {
         if (task.id === taskId) {
-          // Przełączamy między wykonane/oczekujące - nie ruszamy przeterminowanych
+          // Zmieniamy sattus tylko dla zadań oczekujących
           const newStatus = task.status === "wykonane" ? "oczekujące" : "wykonane";
           return { ...task, status: newStatus };
         }

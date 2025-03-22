@@ -1,6 +1,5 @@
 // Formatuje datę do formatu DD.MM.YYYY HH:MM
 export const formatDate = (dateString) => {
-  // Zostawiam to na wszelki wypadek jak będą problemy z datami
   //console.log("Funkcja formatDate została wywołana!");
   const date = new Date(dateString);
   

@@ -7,13 +7,13 @@ function FileUploader({ onFileUpload }) {
     const file = event.target.files[0];
     if (!file) return;
 
-    // Akceptujemy tylko pliki JSON
+    // Sprawdzamy czy plik ma rozszerzenie JSON
     if (!file.name.endsWith('.json')) {
       alert('Proszę wybrać plik JSON');
       return;
     }
 
-    // Czytamy zawartość pliku
+    // Wczytujemy zawartość pliku
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target.result;
