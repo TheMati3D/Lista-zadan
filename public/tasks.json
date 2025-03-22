@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Przykładowe zadanie 1",
+    "details": "Opis zadania 1",
+    "dueDate": "2025-03-25T12:00",
+    "difficulty": 3,
+    "status": "oczekujące"
+  },
+  {
+    "title": "Przykładowe zadanie 2",
+    "details": "Opis zadania 2",
+    "dueDate": "2025-03-26T15:00",
+    "difficulty": 5,
+    "status": "oczekujące"
+  }
+]
