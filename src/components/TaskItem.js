@@ -22,11 +22,10 @@ function TaskItem({ task }) {
     }
   };
 
-  // Funkcja do formatowania tekstu z zachowaniem nowych linii
+  // To rozbija tekst na linie i wstawia odpowiednie <br> - inaczej enter się gubi
   const formatDetails = (text) => {
     if (!text) return null;
     
-    // Dzielimy tekst na linie i tworzymy elementy JSX
     return text.split('\n').map((line, index) => (
       <React.Fragment key={index}>
         {line}
@@ -35,10 +34,13 @@ function TaskItem({ task }) {
     ));
   };
 
+  // Możemy edytować trudność tylko dla zadań oczekujących
   const canChangeDifficulty = task.status === "oczekujące";
+  // Usuwamy tylko wykonane lub przeterminowane
   const canDelete = task.status === "wykonane" || task.status === "przeterminowane";
 
   const handleDelete = () => {
+    // Debug info - do usunięcia przed produkcją
     console.log("Próba usunięcia zadania:", task.id, "Status:", task.status);
     deleteTask(task.id);
   };

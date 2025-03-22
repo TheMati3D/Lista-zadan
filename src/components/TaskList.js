@@ -5,7 +5,7 @@ import TaskItem from './TaskItem';
 function TaskList() {
   const { tasks } = useContext(TaskContext);
 
-  // Dodaj sprawdzenie, czy tasks istnieje
+  // Bez tego rzuca błędem jak nie ma zadań podczas pierwszego ładowania
   if (!tasks) {
     return <div>Ładowanie zadań...</div>;
   }

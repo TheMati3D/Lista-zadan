@@ -11,10 +11,10 @@ function AddTaskForm() {
   const [dateError, setDateError] = useState('');
   const [titleError, setTitleError] = useState('');
   
-  // Stała określająca maksymalną długość tytułu
+  // Max 50 znaków w tytule - żeby się nie rozjeżdżało w UI
   const MAX_TITLE_LENGTH = 50;
 
-  // Funkcja pomocnicza do ustawienia minimalnej dozwolonej daty (teraz)
+  // Zwraca aktualną datę i czas w formacie kompatybilnym z input type="datetime-local"
   const getCurrentDateTime = () => {
     const now = new Date();
     const year = now.getFullYear();
@@ -30,6 +30,7 @@ function AddTaskForm() {
     const selectedDate = new Date(e.target.value);
     const now = new Date();
     
+    // Nie ma sensu dodawać zadań z przeszłości
     if (selectedDate < now) {
       setDateError('Nie można wybrać daty z przeszłości');
     } else {
@@ -41,6 +42,7 @@ function AddTaskForm() {
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
     
+    // Ucinamy tekst jak za długi i informujemy użytkownika
     if (newTitle.length > MAX_TITLE_LENGTH) {
       setTitleError(`Tytuł może zawierać maksymalnie ${MAX_TITLE_LENGTH} znaków`);
       setTitle(newTitle.substring(0, MAX_TITLE_LENGTH));
@@ -53,12 +55,13 @@ function AddTaskForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Podstawowe sprawdzenie czy są wypełnione wymagane pola
     if (!title.trim() || !dueDate) {
       alert('Proszę wypełnić wszystkie wymagane pola');
       return;
     }
 
-    // Dodatkowe sprawdzenie daty
+    // Jeszcze raz sprawdzamy datę - tak na wszelki wypadek
     const selectedDate = new Date(dueDate);
     const now = new Date();
     if (selectedDate < now) {
@@ -75,7 +78,7 @@ function AddTaskForm() {
 
     addTask(newTask);
     
-    // Reset form
+    // Czyścimy wszystko po zapisaniu
     setTitle('');
     setDetails('');
     setDueDate('');
@@ -141,14 +144,14 @@ function AddTaskForm() {
               max="10"
               value={difficulty}
               onChange={(e) => {
-                // Akceptuj tylko cyfry
+                // Pilnujemy żeby były tylko cyfry i wartość max 10
                 const value = e.target.value;
                 if (/^\d*$/.test(value) && (value === '' || parseInt(value, 10) <= 10)) {
                   setDifficulty(value);
                 }
               }}
               onKeyDown={(e) => {
-                // Blokuj "e" i inne niepożądane znaki
+                // Blokujemy litery i inne niepotrzebne znaki w polu numerycznym
                 if (e.key === 'e' || e.key === '+' || e.key === '-' || e.key === '.') {
                   e.preventDefault();
                 }
