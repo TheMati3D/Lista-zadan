@@ -49,7 +49,19 @@ function TaskItem({ task }) {
     <div className={`task-item ${getStatusClass()}`}>
       <div className="task-header">
         <h3>{task.title}</h3>
-        <div className="task-actions">
+        <div className="task-actions" style={{ display: 'flex', alignItems: 'center' }}>
+          {/* Dodany span wyświetlający "Wykonane" obok przycisku dla zadań o statusie "oczekujące" */}
+          {task.status === "oczekujące" && (
+            <span style={{ 
+              marginRight: "8px", 
+              fontSize: "0.9rem",
+              display: "flex",
+              alignItems: "center",
+              height: "100%"
+            }}>
+              Wykonane
+            </span>
+          )}
           <button 
             className="status-button"
             onClick={() => toggleTaskStatus(task.id)}
